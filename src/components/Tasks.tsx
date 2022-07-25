@@ -4,10 +4,11 @@ import styles from "./Tasks.module.css";
 
 interface TasksProps {
   tasks: ITask[];
-  deleteTask: (taskId: string) => void;
+  onDelete: (taskId: string) => void;
+  toggleTaskById: (taskId: string) => void;
 }
 
-export function Tasks({ tasks, deleteTask }: TasksProps) {
+export function Tasks({ tasks, onDelete, toggleTaskById }: TasksProps) {
   const tasksQuantity = tasks.length;
   const tasksCompleted = tasks.filter((task) => task.isCompleted).length;
 
@@ -29,7 +30,12 @@ export function Tasks({ tasks, deleteTask }: TasksProps) {
 
       <div className={styles.list}>
         {tasks.map((task) => (
-          <Task key={task.id} task={task} deleteTask={deleteTask} />
+          <Task
+            key={task.id}
+            task={task}
+            onDelete={onDelete}
+            toggleTaskById={toggleTaskById}
+          />
         ))}
       </div>
     </section>

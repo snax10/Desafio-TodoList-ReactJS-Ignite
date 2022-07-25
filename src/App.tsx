@@ -26,15 +26,32 @@ function App() {
     ]);
   }
 
-  function deleteTask(taskId: string) {
+  function deleteTaskById(taskId: string) {
     const newTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(newTasks);
+  }
+
+  function toggleTaskById(taskId: string) {
+    const newTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          isCompleted: !task.isCompleted,
+        };
+      }
+      return task;
+    });
     setTasks(newTasks);
   }
 
   return (
     <>
       <Header addTask={addTask} />
-      <Tasks tasks={tasks} deleteTask={deleteTask} />
+      <Tasks
+        tasks={tasks}
+        onDelete={deleteTaskById}
+        toggleTaskById={toggleTaskById}
+      />
     </>
   );
 }
