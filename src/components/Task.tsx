@@ -18,7 +18,9 @@ export function Task({ task, onDelete, toggleTaskById }: TaskProps) {
         {isCompleted ? <BsFillCheckCircleFill size={20} /> : <div />}
       </button>
 
-      <p>{task.title}</p>
+      <p className={task.isCompleted ? styles.textCompleted : ""}>
+        {task.title}
+      </p>
 
       <button className={styles.delete} onClick={() => onDelete(task.id)}>
         <TbTrash size={20} />
