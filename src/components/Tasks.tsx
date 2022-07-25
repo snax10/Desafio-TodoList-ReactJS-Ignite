@@ -1,19 +1,37 @@
+import { ITask } from "../App";
+import { Task } from "./Task";
 import styles from "./Tasks.module.css";
 
-export function Tasks() {
+interface TasksProps {
+  tasks: ITask[];
+  deleteTask: (taskId: string) => void;
+}
+
+export function Tasks({ tasks, deleteTask }: TasksProps) {
+  const tasksQuantity = tasks.length;
+  const tasksCompleted = tasks.filter((task) => task.isCompleted).length;
+
   return (
     <section className={styles.tasks}>
       <header className={styles.header}>
         <div>
           <p>Tarefas criadas</p>
-          <span>10</span>
+          <span>{tasksQuantity}</span>
         </div>
 
         <div>
           <p className={styles.purpleText}>Tarefas concluídas</p>
-          <span>2 de 10</span>
+          <span>
+            {tasksCompleted} de {tasksQuantity}
+          </span>
         </div>
       </header>
+
+      <div className={styles.list}>
+        {tasks.map((task) => (
+          <Task key={task.id} task={task} deleteTask={deleteTask} />
+        ))}
+      </div>
     </section>
   );
 }
